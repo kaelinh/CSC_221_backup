@@ -1,0 +1,126 @@
+In [1]: import csv
+
+In [2]: exampleFile = open('example.csv')
+
+In [3]: exampleReader = csv.reader(exampleFile)
+
+In [4]: exampleData = list(exampleReader)
+
+In [5]: exampleData
+Out[5]: 
+[['4/5/2014 13:34', 'Apples', '73'],
+ ['4/5/2014 3:41', 'Cherries', '85'],
+ ['4/6/2014 12:46', 'Pears', '14'],
+ ['4/8/2014 8:59', 'Oranges', '52'],
+ ['4/10/2014 2:07', 'Apples', '152'],
+ ['4/10/2014 18:10', 'Bananas', '23'],
+ ['4/10/2014 2:40', 'Strawberries', '98']]
+
+In [6]: exampleData[0][0]
+Out[6]: '4/5/2014 13:34'
+
+In [7]: exampleData[0][1
+   ...: ]
+Out[7]: 'Apples'
+
+In [8]: exampleData[0][2]
+Out[8]: '73'
+
+In [9]: exampleData[1][1]
+Out[9]: 'Cherries'
+
+In [10]: exampleData[6][1]
+Out[10]: 'Strawberries'
+
+In [11]: exampleReader = csv.reader(exampleFile)
+
+In [12]: for row in exampleReader:
+    ...:     print ('Row #' + str(exampleReader.line_num) + ' ' + str(row))
+    ...:     
+
+In [13]: exampleFile = open('example.csv')
+
+In [14]: exampleReader = csv.reader(exampleFile)
+
+In [15]: for row in exampleReader:
+    ...:     print ('Row #' + str(exampleReader.line_num) + ' ' + str(row))
+    ...:     
+Row #1 ['4/5/2014 13:34', 'Apples', '73']
+Row #2 ['4/5/2014 3:41', 'Cherries', '85']
+Row #3 ['4/6/2014 12:46', 'Pears', '14']
+Row #4 ['4/8/2014 8:59', 'Oranges', '52']
+Row #5 ['4/10/2014 2:07', 'Apples', '152']
+Row #6 ['4/10/2014 18:10', 'Bananas', '23']
+Row #7 ['4/10/2014 2:40', 'Strawberries', '98']
+
+In [16]: outputFile = open('output.csv', 'w', newline='')
+
+In [17]: outputWriter = csv.writer(outputFile)
+
+In [18]: outputWriter.writerow(['spam','eggs','bacon','ham'])
+Out[18]: 21
+
+In [19]: outputWriter.writerow(['Hello, world!', 'eggs', 'bacon', 'ham'])
+Out[19]: 32
+
+In [20]: outputWriter.writerow([1,2,3.141592, 4])
+Out[20]: 16
+
+In [21]: outputFile.close()
+
+In [22]: csvFile = open('example.tsv', 'w', newline='')
+
+In [23]: csvWriter = csv.writer(csvFile, delimiter = '\t', lineterminator = '\n
+    ...: \n')
+
+In [24]: csvWriter.writerow(['apples', 'oranges', 'grapes'])
+Out[24]: 23
+
+In [25]: csvWriter.writerow(['eggs','bacon','ham'])
+Out[25]: 16
+
+In [26]: csvWriter.writerow(['spam','spam','spam','spam'])
+Out[26]: 21
+
+In [27]: csvFile.close()
+
+In [28]: json
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-28-832ed6b85533> in <module>()
+----> 1 json
+
+NameError: name 'json' is not defined
+
+In [29]: import json
+
+In [30]:  stringOfJsonData = '{"name": "Zophie", "isCat": true, "miceCaught": 0
+    ...: ,
+    ...: "felineIQ": null}'
+  File "<ipython-input-30-235b1c88c15a>", line 1
+    stringOfJsonData = '{"name": "Zophie", "isCat": true, "miceCaught": 0,
+                                                                          ^
+SyntaxError: EOL while scanning string literal
+
+
+In [31]:  stringOfJsonData = '{"name": "Zophie", "isCat": true, "miceCaught": 0, "flineIQ": null}'
+
+In [32]: import json
+
+In [33]: jsonDataAsPythonValue = json.loads(stringOfJsonData)
+
+In [34]: jsonDataAsPythonValue
+Out[34]: {'flineIQ': None, 'isCat': True, 'miceCaught': 0, 'name': 'Zophie'}
+
+In [35]: pythonValue = {'isCat': True, 'miceCaught': 0, 'name': 'Zophie',
+    ...: 'felineIQ': None}
+
+In [36]: import json
+
+In [37]: stringOfJsonData = json.dumps(pythonValue)
+
+In [38]: stringOfJsonData
+Out[38]: '{"name": "Zophie", "miceCaught": 0, "felineIQ": null, "isCat": true}'
+
+In [39]: 
+

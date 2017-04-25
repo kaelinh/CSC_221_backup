@@ -1,0 +1,242 @@
+In [1]: import requests
+
+In [2]: res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+
+In [3]: type(res)
+Out[3]: requests.models.Response
+
+In [4]: res.status_code == requests.codes.ok
+Out[4]: True
+
+In [5]: len(res.text)
+Out[5]: 174130
+
+In [6]: print(res.text[:250])
+ï»¿The Project Gutenberg EBook of Romeo and Juliet, by William Shakespeare
+
+This eBook is for the use of anyone anywhere at no cost and with
+almost no restrictions whatsoever.  You may copy it, give it away or
+re-use it under the terms of the Project
+
+In [7]: res = requests.get('http://inventwithpython.com/page_that_does_not_exist')
+
+In [8]: res.raise_for_status()
+---------------------------------------------------------------------------
+HTTPError                                 Traceback (most recent call last)
+<ipython-input-8-6ec835a6a98f> in <module>()
+----> 1 res.raise_for_status()
+
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/requests/models.py in raise_for_status(self)
+    891 
+    892         if http_error_msg:
+--> 893             raise HTTPError(http_error_msg, response=self)
+    894 
+    895     def close(self):
+
+HTTPError: 404 Client Error: Not Found for url: http://inventwithpython.com/page_that_does_not_exist
+
+In [9]: res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+
+In [10]: res.raise_for_status()
+
+In [11]: playFile=open('RomeoAndJuliet.txt','wb')
+
+In [12]: for chunk in res.iter_content(100000):
+    ...:     playFile.write(chunk)
+    ...:     
+
+In [13]: playFile.close()
+
+In [14]: import requests, bs4
+
+In [15]: res = requests.get('http://nostarch.com')
+
+In [16]: res.raise_for_status()
+
+In [17]: noStarchSoup = bs4.BeautifulSoup(res.text)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/bs4/__init__.py:181: UserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("html.parser"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 11 of the file /Library/Frameworks/Python.framework/Versions/3.5/bin/ipython. To get rid of this warning, change code that looks like this:
+
+ BeautifulSoup([your markup])
+
+to this:
+
+ BeautifulSoup([your markup], "html.parser")
+
+  markup_type=markup_type))
+
+In [18]: noStarchSoup = bs4.BeautifulSoup(res.text, "html.parser")
+
+In [19]: type(noStarchSoup)
+Out[19]: bs4.BeautifulSoup
+
+In [20]: exampleFile = open('example.html')
+
+In [21]: exampleSoup = bs4.BeautifulSoup(exampleFile)
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/bs4/__init__.py:181: UserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("html.parser"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 11 of the file /Library/Frameworks/Python.framework/Versions/3.5/bin/ipython. To get rid of this warning, change code that looks like this:
+
+ BeautifulSoup([your markup])
+
+to this:
+
+ BeautifulSoup([your markup], "html.parser")
+
+  markup_type=markup_type))
+
+In [22]: exampleSoup = bs4.BeautifulSoup(exampleFile, "html.parser")
+
+In [23]: type(exampleSoup)
+Out[23]: bs4.BeautifulSoup
+
+In [24]: exampleFile = open('example.html')
+
+In [25]: exampleSoup = bs4.BeautifulSoup(exampleFile.read())
+/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/bs4/__init__.py:181: UserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("html.parser"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 11 of the file /Library/Frameworks/Python.framework/Versions/3.5/bin/ipython. To get rid of this warning, change code that looks like this:
+
+ BeautifulSoup([your markup])
+
+to this:
+
+ BeautifulSoup([your markup], "html.parser")
+
+  markup_type=markup_type))
+
+In [26]: elems = exampleSoup.select('#author')
+
+In [27]: type(elems)
+Out[27]: list
+
+In [28]: len(elems)
+Out[28]: 1
+
+In [29]: type(elems[0])
+Out[29]: bs4.element.Tag
+
+In [30]: elems[0].getText()
+Out[30]: 'Al Sweigart'
+
+In [31]: str(elems[0])
+Out[31]: '<span id="author">Al Sweigart</span>'
+
+In [32]: elems[0].attrs
+Out[32]: {'id': 'author'}
+
+In [33]: pElems = exampleSoup..select('p')
+  File "<ipython-input-33-a029334bc34e>", line 1
+    pElems = exampleSoup..select('p')
+                         ^
+SyntaxError: invalid syntax
+
+
+In [34]: pElems = exampleSoup.select('p')
+
+In [35]: str(pElems[0])
+Out[35]: '<p>Download my <strong>Python</strong> book from <a href="http://inventwithpython.com">my website</a>.</p>'
+
+In [36]: pElems[0].getText()
+Out[36]: 'Download my Python book from my website.'
+
+In [37]: str(pElems[1])
+Out[37]: '<p class="slogan">Learn Python the easy way!</p>'
+
+In [38]: pElems[1].getText()
+Out[38]: 'Learn Python the easy way!'
+
+In [39]: str(pElems[2])
+Out[39]: '<p>By <span id="author">Al Sweigart</span></p>'
+
+In [40]: pElems[2].getText()
+Out[40]: 'By Al Sweigart'
+
+In [41]: soup = bs4.BeautifulSoup(open('example.html'), "html.parser")
+
+In [42]: spanElem = soup.select('span')[0]
+
+In [43]: str(spanElem)
+Out[43]: '<span id="author">Al Sweigart</span>'
+
+In [44]: spanElem.get('id')
+Out[44]: 'author'
+
+In [45]: spanElem.get('some_nonexistent_addr') == None
+Out[45]: True
+
+In [46]: spanElem.attrs
+Out[46]: {'id': 'author'}
+
+In [47]: from selenium import webdriver
+
+In [48]: browser = webdriver.Safari()
+
+In [49]: type(browser)
+Out[49]: selenium.webdriver.safari.webdriver.WebDriver
+
+In [50]: browser.get('http://inventwithpython.com')
+
+In [51]: linkElem = browser.find_element_by_link_text('Read It Online')
+
+In [52]: type(linkElem)
+Out[52]: selenium.webdriver.remote.webelement.WebElement
+
+In [53]: linkElem.click()
+
+In [54]: browser.get('https://mail.yahoo.com
+  File "<ipython-input-54-0f4ba3436fa5>", line 1
+    browser.get('https://mail.yahoo.com
+                                       ^
+SyntaxError: EOL while scanning string literal
+
+
+In [55]: browser.get('https://mail.yahoo.com')
+
+In [56]: emailElem = browser.find_element_by_id('login-username')
+
+In [57]: emailElem.send_keys('not_my_real_email')
+
+In [58]: passwordElem = browser.find_element_by_id('login-passwd')
+
+In [59]: passwordElem.send_keys('12345')
+
+In [60]: passwordElem.submit()
+
+In [61]: browser.get('http://nostarch.com')
+
+In [62]: htmlElem = browser.find_element_by_tag_name('html')
+
+In [63]: htmlElem.send_keys(Keys.END)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-63-9384055ca083> in <module>()
+----> 1 htmlElem.send_keys(Keys.END)
+
+NameError: name 'Keys' is not defined
+
+In [64]: from selenium.webdriver.common.keys import Keys
+
+In [65]: htmlElem.send_keys(Keys.END)
+
+In [66]: htmlElem.send_keys(Keys.HOME)
+
+In [67]: browser.refresh()
+
+In [68]: browser.back()
+
+In [69]: broswer.forward()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-69-c58bd86f1b9c> in <module>()
+----> 1 broswer.forward()
+
+NameError: name 'broswer' is not defined
+
+In [70]: browser.forward()
+
+In [71]: browser.quit()
+
+In [72]: 
+
